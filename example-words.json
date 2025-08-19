@@ -1,0 +1,77 @@
+[
+  {
+    "word": "hello",
+    "meaning": "你好，问候语",
+    "category": "日常用语"
+  },
+  {
+    "word": "goodbye",
+    "meaning": "再见，告别语",
+    "category": "日常用语"
+  },
+  {
+    "word": "computer",
+    "meaning": "计算机，电脑",
+    "category": "科技术语"
+  },
+  {
+    "word": "algorithm",
+    "meaning": "算法，解决问题的步骤",
+    "category": "科技术语"
+  },
+  {
+    "word": "meeting",
+    "meaning": "会议，集会",
+    "category": "商务英语"
+  },
+  {
+    "word": "presentation",
+    "meaning": "演示，报告",
+    "category": "商务英语"
+  },
+  {
+    "word": "restaurant",
+    "meaning": "餐厅，饭店",
+    "category": "生活用品"
+  },
+  {
+    "word": "delicious",
+    "meaning": "美味的，可口的",
+    "category": "美食烹饪"
+  },
+  {
+    "word": "happy",
+    "meaning": "快乐的，高兴的",
+    "category": "情感表达"
+  },
+  {
+    "word": "excitement",
+    "meaning": "兴奋，激动",
+    "category": "情感表达"
+  },
+  {
+    "word": "research",
+    "meaning": "研究，调查",
+    "category": "学术词汇"
+  },
+  {
+    "word": "hypothesis",
+    "meaning": "假设，假说",
+    "category": "学术词汇"
+  },
+  {
+    "word": "passport",
+    "meaning": "护照",
+    "category": "旅行出行"
+  },
+  {
+    "word": "luggage",
+    "meaning": "行李",
+    "category": "旅行出行"
+  },
+  {
+    "word": "medicine",
+    "meaning": "药物，医学",
+    "category": "医疗健康"
+  }
+]

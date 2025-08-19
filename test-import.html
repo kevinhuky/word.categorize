@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>测试JSON导入</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .upload-area {
+            border: 2px dashed #ccc;
+            border-radius: 10px;
+            padding: 40px;
+            text-align: center;
+            margin: 20px 0;
+            cursor: pointer;
+        }
+        .upload-area:hover {
+            border-color: #409eff;
+            background-color: #f5f7fa;
+        }
+        .preview {
+            margin-top: 20px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .word-item {
+            padding: 10px;
+            margin: 5px 0;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+        }
+        .error {
+            color: red;
+            background-color: #fef0f0;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        .success {
+            color: green;
+            background-color: #f0f9ff;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        button {
+            background-color: #409eff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background-color: #337ecc;
+        }
+        button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <h1>JSON导入测试</h1>
+    
+    <div class="upload-area" onclick="document.getElementById('fileInput').click()">
+        <p>点击选择JSON文件</p>
+        <p style="font-size: 14px; color: #666;">支持JSON格式，最大10MB</p>
+    </div>
+    
+    <input type="file" id="fileInput" accept=".json" style="display: none;">
+    
+    <div id="messages"></div>
+    
+    <div id="preview" style="display: none;">
+        <h3>预览数据 (<span id="wordCount">0</span> 个单词)</h3>
+        <button onclick="confirmImport()" id="importBtn">确认导入</button>
+        <button onclick="clearPreview()">清除预览</button>
+        <div id="previewContent" class="preview"></div>
+    </div>
+    
+    <div id="result"></div>
+
+    <script type="module">
+        // 模拟Word类
+        class Word {
+            constructor(data = {}) {
+                this.id = data.id || this.generateId()
+                this.word = data.word || ''
+                this.meaning = data.meaning || ''
+                this.category = data.category || ''
+                this.createdAt = data.createdAt || new Date().toISOString()
+            }
+
+            generateId() {
+                return Date.now().toString(36) + Math.random().toString(36).substr(2)
+            }
+
+            validate() {
+                const errors = []
+                
+                if (!this.word || !this.word.trim()) {
+                    errors.push('单词不能为空')
+                }
+                
+                if (!this.meaning || !this.meaning.trim()) {
+                    errors.push('释义不能为空')
+                }
+                
+                if (!this.category || !this.category.trim()) {
+                    errors.push('分类不能为空')
+                }
+
+                return {
+                    isValid: errors.length === 0,
+                    errors
+                }
+            }
+
+            toJSON() {
+                return {
+                    id: this.id,
+                    word: this.word,
+                    meaning: this.meaning,
+                    category: this.category,
+                    createdAt: this.createdAt
+                }
+            }
+        }
+
+        // 模拟存储服务
+        class StorageService {
+            constructor() {
+                this.STORAGE_KEY = 'wordCategorizeData'
+            }
+
+            getWords() {
+                try {
+                    const data = localStorage.getItem(this.STORAGE_KEY)
+                    return data ? JSON.parse(data) : []
+                } catch (error) {
+                    console.error('读取数据失败:', error)
+                    return []
+                }
+            }
+
+            saveWords(words) {
+                try {
+                    localStorage.setItem(this.STORAGE_KEY, JSON.stringify(words))
+                    return true
+                } catch (error) {
+                    console.error('保存数据失败:', error)
+                    return false
+                }
+            }
+
+            addWord(word) {
+                try {
+                    const words = this.getWords()
+                    const wordData = word.toJSON()
+                    words.push(wordData)
+                    return this.saveWords(words)
+                } catch (error) {
+                    console.error('添加单词失败:', error)
+                    return false
+                }
+            }
+        }
+
+        const storageService = new StorageService()
+        let importPreview = []
+
+        // 文件上传处理
+        document.getElementById('fileInput').addEventListener('change', function(e) {
+            const file = e.target.files[0]
+            if (!file) return
+
+            if (!file.name.endsWith('.json')) {
+                showMessage('请选择JSON格式文件', 'error')
+                return
+            }
+
+            if (file.size > 10 * 1024 * 1024) {
+                showMessage('文件大小不能超过10MB', 'error')
+                return
+            }
+
+            const reader = new FileReader()
+            reader.onload = function(e) {
+                try {
+                    const jsonData = JSON.parse(e.target.result)
+                    validateAndPreviewWords(jsonData)
+                } catch (error) {
+                    showMessage('JSON文件格式错误: ' + error.message, 'error')
+                }
+            }
+            reader.readAsText(file)
+        })
+
+        function validateAndPreviewWords(data) {
+            clearMessages()
+            importPreview = []
+
+            if (!Array.isArray(data)) {
+                showMessage('JSON文件必须包含一个数组', 'error')
+                return
+            }
+
+            if (data.length === 0) {
+                showMessage('JSON数组不能为空', 'error')
+                return
+            }
+
+            const validWords = []
+            const errors = []
+
+            data.forEach((item, index) => {
+                if (!item || typeof item !== 'object') {
+                    errors.push(`第${index + 1}项: 必须是对象`)
+                    return
+                }
+
+                if (!item.word || typeof item.word !== 'string' || !item.word.trim()) {
+                    errors.push(`第${index + 1}项: 缺少有效的word字段`)
+                    return
+                }
+
+                if (!item.meaning || typeof item.meaning !== 'string' || !item.meaning.trim()) {
+                    errors.push(`第${index + 1}项: 缺少有效的meaning字段`)
+                    return
+                }
+
+                if (!item.category || typeof item.category !== 'string' || !item.category.trim()) {
+                    errors.push(`第${index + 1}项: 缺少有效的category字段`)
+                    return
+                }
+
+                validWords.push({
+                    word: item.word.trim(),
+                    meaning: item.meaning.trim(),
+                    category: item.category.trim()
+                })
+            })
+
+            if (errors.length > 0) {
+                showMessage('发现错误:\n' + errors.slice(0, 5).join('\n'), 'error')
+            }
+
+            if (validWords.length > 0) {
+                importPreview = validWords
+                showPreview(validWords)
+                showMessage(`已解析 ${validWords.length} 个有效单词`, 'success')
+            } else {
+                showMessage('没有找到有效的单词数据', 'error')
+            }
+        }
+
+        function showPreview(words) {
+            const previewDiv = document.getElementById('preview')
+            const previewContent = document.getElementById('previewContent')
+            const wordCount = document.getElementById('wordCount')
+            
+            wordCount.textContent = words.length
+            
+            previewContent.innerHTML = words.slice(0, 20).map(word => `
+                <div class="word-item">
+                    <strong>${word.word}</strong> - ${word.meaning} 
+                    <span style="background: #e6f7ff; padding: 2px 6px; border-radius: 3px; font-size: 12px;">${word.category}</span>
+                </div>
+            `).join('')
+            
+            if (words.length > 20) {
+                previewContent.innerHTML += `<div style="text-align: center; color: #666; padding: 10px;">还有 ${words.length - 20} 个单词...</div>`
+            }
+            
+            previewDiv.style.display = 'block'
+        }
+
+        window.confirmImport = async function() {
+            if (importPreview.length === 0) return
+
+            const importBtn = document.getElementById('importBtn')
+            importBtn.disabled = true
+            importBtn.textContent = '导入中...'
+
+            let successCount = 0
+            let failCount = 0
+            const errors = []
+
+            try {
+                for (const wordData of importPreview) {
+                    try {
+                        const word = new Word(wordData)
+                        const validation = word.validate()
+                        
+                        if (!validation.isValid) {
+                            errors.push(`${wordData.word}: ${validation.errors.join(', ')}`)
+                            failCount++
+                            continue
+                        }
+
+                        const success = storageService.addWord(word)
+                        if (success) {
+                            successCount++
+                        } else {
+                            errors.push(`${wordData.word}: 保存失败`)
+                            failCount++
+                        }
+                    } catch (error) {
+                        errors.push(`${wordData.word}: ${error.message}`)
+                        failCount++
+                    }
+                }
+
+                if (successCount > 0) {
+                    const successMsg = `✅ 成功导入 ${successCount} 个单词` + (failCount > 0 ? `，${failCount} 个失败` : '')
+                    showMessage(successMsg, 'success')
+                    clearPreview()
+                    
+                    // 显示当前存储的单词总数
+                    const totalWords = storageService.getWords().length
+                    showMessage(`当前词库共有 ${totalWords} 个单词`, 'success')
+                } else {
+                    showMessage('导入失败，没有成功导入任何单词', 'error')
+                }
+
+                if (errors.length > 0) {
+                    showMessage('部分导入错误:\n' + errors.slice(0, 5).join('\n'), 'error')
+                }
+
+            } catch (error) {
+                showMessage('导入过程出错: ' + error.message, 'error')
+            } finally {
+                importBtn.disabled = false
+                importBtn.textContent = '确认导入'
+            }
+        }
+
+        window.clearPreview = function() {
+            importPreview = []
+            document.getElementById('preview').style.display = 'none'
+            showMessage('已清除预览数据', 'success')
+        }
+
+        function showMessage(message, type) {
+            const messagesDiv = document.getElementById('messages')
+            const messageDiv = document.createElement('div')
+            messageDiv.className = type
+            messageDiv.textContent = message
+            messagesDiv.appendChild(messageDiv)
+            
+            // 3秒后自动清除成功消息
+            if (type === 'success') {
+                setTimeout(() => {
+                    if (messageDiv.parentNode) {
+                        messageDiv.parentNode.removeChild(messageDiv)
+                    }
+                }, 3000)
+            }
+        }
+
+        function clearMessages() {
+            document.getElementById('messages').innerHTML = ''
+        }
+
+        // 页面加载时显示当前词库状态
+        window.addEventListener('load', function() {
+            const totalWords = storageService.getWords().length
+            if (totalWords > 0) {
+                showMessage(`当前词库已有 ${totalWords} 个单词`, 'success')
+            }
+        })
+    </script>
+</body>
+</html>

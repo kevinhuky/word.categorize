@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(rm -rf /mnt/e/cxyhuky/workspace/myproject/word.categorize/js)",
+      "Bash(rm:*)",
+      "Bash(npm run dev)",
+      "Bash(npm install naive-ui)",
+      "Bash(npm run build:*)",
+      "Bash(npm run lint)",
+      "Bash(pkill:*)",
+      "Bash(npm install:*)",
+      "Bash(npm uninstall naive-ui)"
+    ],
+    "deny": []
+  }
+}

@@ -1,0 +1,397 @@
+[
+   {
+    "word": "thick",
+    "meaning": "厚的，粗的",
+    "category": "日常用语"
+  },
+  {
+    "word": "desk",
+    "meaning": "书桌，办公桌",
+    "category": "日常用品"
+  },
+  {
+    "word": "table",
+    "meaning": "餐桌，通用桌",
+    "category": "日常用品"
+  },
+  {
+    "word": "plate",
+    "meaning": "盘子",
+    "category": "日常用品"
+  },
+  {
+    "word": "cup",
+    "meaning": "杯子（陶瓷、塑料）",
+    "category": "日常用品"
+  },
+  {
+    "word": "glass",
+    "meaning": "杯子（玻璃）",
+    "category": "日常用品"
+  },
+  {
+    "word": "bottle",
+    "meaning": "瓶子",
+    "category": "日常用品"
+  },
+  {
+    "word": "knife",
+    "meaning": "刀",
+    "category": "日常用品"
+  },
+  {
+    "word": "fork",
+    "meaning": "叉子",
+    "category": "日常用品"
+  },
+  {
+    "word": "spoon",
+    "meaning": "勺子",
+    "category": "日常用品"
+  },
+  {
+    "word": "tin",
+    "meaning": "罐头",
+    "category": "日常用品"
+  },
+  {
+    "word": "shelf",
+    "meaning": "架子",
+    "category": "日常用品"
+  },
+  {
+    "word": "cupboard",
+    "meaning": "食橱",
+    "category": "日常用品"
+  },
+  {
+    "word": "television",
+    "meaning": "电视机",
+    "category": "日常用品"
+  },
+  {
+    "word": "stereo",
+    "meaning": "音响",
+    "category": "日常用品"
+  },
+  {
+    "word": "carpet",
+    "meaning": "地毯",
+    "category": "日常用品"
+  },
+  {
+    "word": "case",
+    "meaning": "箱子",
+    "category": "日常用品"
+  },
+  {
+    "word": "cigarette",
+    "meaning": "香烟",
+    "category": "日常用品"
+  },
+  {
+    "word": "upstairs",
+    "meaning": "楼上",
+    "category": "生活用品"
+  },
+  {
+    "word": "downstairs",
+    "meaning": "楼下",
+    "category": "生活用品"
+  },
+  {
+    "word": "floor",
+    "meaning": "地板",
+    "category": "生活用品"
+  },
+  {
+    "word": "dressing table",
+    "meaning": "梳妆台",
+    "category": "生活用品"
+  },
+  {
+    "word": "cloakroom",
+    "meaning": "衣帽间",
+    "category": "生活用品"
+  },
+  {
+    "word": "tired",
+    "meaning": "疲倦的",
+    "category": "情感表达"
+  },
+  {
+    "word": "thirsty",
+    "meaning": "口渴的",
+    "category": "情感表达"
+  },
+  {
+    "word": "lovely",
+    "meaning": "可爱的",
+    "category": "情感表达"
+  },
+  {
+    "word": "shut",
+    "meaning": "关闭的",
+    "category": "情感表达"
+  },
+  {
+    "word": "open",
+    "meaning": "打开的",
+    "category": "情感表达"
+  },
+  {
+    "word": "heavy",
+    "meaning": "重的",
+    "category": "情感表达"
+  },
+  {
+    "word": "light",
+    "meaning": "轻的",
+    "category": "情感表达"
+  },
+  {
+    "word": "sharp",
+    "meaning": "锋利的",
+    "category": "情感表达"
+  },
+  {
+    "word": "blunt",
+    "meaning": "钝的",
+    "category": "情感表达"
+  },
+  {
+    "word": "air hostess",
+    "meaning": "空姐",
+    "category": "商务英语"
+  },
+  {
+    "word": "flight attendant",
+    "meaning": "乘务员",
+    "category": "商务英语"
+  },
+  {
+    "word": "mechanic",
+    "meaning": "机械师",
+    "category": "商务英语"
+  },
+  {
+    "word": "hairdresser",
+    "meaning": "理发师",
+    "category": "商务英语"
+  },
+  {
+    "word": "employee",
+    "meaning": "雇员",
+    "category": "商务英语"
+  },
+  {
+    "word": "sales rep",
+    "meaning": "销售代表",
+    "category": "商务英语"
+  },
+  {
+    "word": "assistant",
+    "meaning": "助理",
+    "category": "商务英语"
+  },
+  {
+    "word": "officer",
+    "meaning": "官员",
+    "category": "商务英语"
+  },
+  {
+    "word": "France",
+    "meaning": "法国",
+    "category": "旅行出行"
+  },
+  {
+    "word": "French",
+    "meaning": "法国的",
+    "category": "旅行出行"
+  },
+  {
+    "word": "Germany",
+    "meaning": "德国",
+    "category": "旅行出行"
+  },
+  {
+    "word": "German",
+    "meaning": "德国的",
+    "category": "旅行出行"
+  },
+  {
+    "word": "Japan",
+    "meaning": "日本",
+    "category": "旅行出行"
+  },
+  {
+    "word": "Japanese",
+    "meaning": "日本的",
+    "category": "旅行出行"
+  },
+  {
+    "word": "Korea",
+    "meaning": "韩国",
+    "category": "旅行出行"
+  },
+  {
+    "word": "Korean",
+    "meaning": "韩国的",
+    "category": "旅行出行"
+  },
+  {
+    "word": "Sweden",
+    "meaning": "瑞典",
+    "category": "旅行出行"
+  },
+  {
+    "word": "Swedish",
+    "meaning": "瑞典的",
+    "category": "旅行出行"
+  },
+  {
+    "word": "Britain",
+    "meaning": "英国",
+    "category": "旅行出行"
+  },
+  {
+    "word": "British",
+    "meaning": "英国的",
+    "category": "旅行出行"
+  },
+  {
+    "word": "Italy",
+    "meaning": "意大利",
+    "category": "旅行出行"
+  },
+  {
+    "word": "Italian",
+    "meaning": "意大利的",
+    "category": "旅行出行"
+  },
+  {
+    "word": "Norway",
+    "meaning": "挪威",
+    "category": "旅行出行"
+  },
+  {
+    "word": "Norwegian",
+    "meaning": "挪威的",
+    "category": "旅行出行"
+  },
+  {
+    "word": "Denmark",
+    "meaning": "丹麦",
+    "category": "旅行出行"
+  },
+  {
+    "word": "Danish",
+    "meaning": "丹麦的",
+    "category": "旅行出行"
+  },
+  {
+    "word": "Holland",
+    "meaning": "荷兰",
+    "category": "旅行出行"
+  },
+  {
+    "word": "Dutch",
+    "meaning": "荷兰的",
+    "category": "旅行出行"
+  },
+  {
+    "word": "Russia",
+    "meaning": "俄罗斯",
+    "category": "旅行出行"
+  },
+  {
+    "word": "Russian",
+    "meaning": "俄罗斯的",
+    "category": "旅行出行"
+  },
+  {
+    "word": "skirt",
+    "meaning": "短裙",
+    "category": "生活用品"
+  },
+  {
+    "word": "shirt",
+    "meaning": "衬衫",
+    "category": "生活用品"
+  },
+  {
+    "word": "blouse",
+    "meaning": "女式衬衫",
+    "category": "生活用品"
+  },
+  {
+    "word": "suit",
+    "meaning": "西装",
+    "category": "生活用品"
+  },
+  {
+    "word": "tie",
+    "meaning": "领带",
+    "category": "生活用品"
+  },
+  {
+    "word": "trousers",
+    "meaning": "裤子",
+    "category": "生活用品"
+  },
+  {
+    "word": "pardon",
+    "meaning": "请再说一遍",
+    "category": "日常用语"
+  },
+  {
+    "word": "whose",
+    "meaning": "谁的",
+    "category": "日常用语"
+  },
+  {
+    "word": "perhaps",
+    "meaning": "可能",
+    "category": "日常用语"
+  },
+  {
+    "word": "make",
+    "meaning": "品牌",
+    "category": "日常用语"
+  },
+  {
+    "word": "nationality",
+    "meaning": "国籍",
+    "category": "日常用语"
+  },
+  {
+    "word": "customs",
+    "meaning": "海关",
+    "category": "日常用语"
+  },
+  {
+    "word": "gray",
+    "meaning": "灰色",
+    "category": "日常用语"
+  },
+  {
+    "word": "grey",
+    "meaning": "灰色",
+    "category": "日常用语"
+  },
+  {
+    "word": "purple",
+    "meaning": "紫色",
+    "category": "日常用语"
+  },
+  {
+    "word": "brown",
+    "meaning": "棕色",
+    "category": "日常用语"
+  },
+  {
+    "word": "orange",
+    "meaning": "橙色",
+    "category": "日常用语"
+  }
+]

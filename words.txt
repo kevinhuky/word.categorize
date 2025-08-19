@@ -1,0 +1,82 @@
+新概念生词精准分类
+日常用品类
+desk (书桌/办公桌)
+table (餐桌/通用桌)
+plate 盘子
+cup (陶瓷、塑料)杯子
+glass (玻璃)杯子
+bottle 瓶子
+knife/fork/spoon 刀/叉子/勺子
+tin 罐头
+shelf 架子
+cupboard 食橱
+television 电视机
+stereo 音响
+carpet 地毯
+case 箱子
+cigarette 香烟
+
+家居空间类
+upstairs 楼上
+downstairs 楼下
+floor 地板
+dressing table 梳妆台
+cloakroom 衣帽间
+
+人物称谓类
+男士：Mr.
+女士：Miss.(未婚) / Mrs.(已婚) / Ms.(婚姻状况不明)
+
+状态描述类
+tired 疲倦的
+thirsty 口渴的
+lovely 可爱的
+shut/open 关闭的/打开的
+heavy/light 重的/轻的
+sharp/blunt 锋利的/钝的
+
+
+职业职务类
+air hostess 空姐
+flight attendant 乘务员
+mechanic 机械师
+hairdresser 理发师
+employee 雇员
+sales rep 销售代表
+assistant 助理
+officer 官员
+
+国家国籍类
+France/French 法国/法国的
+Germany/German 德国/德国的
+Japan/Japanese 日本/日本的
+Korea/Korean 韩国/韩国的
+Sweden/Swedish 瑞典/瑞典的
+Britain/British 英国/英国的
+Italy/Italian 意大利/意大利的
+Norway/Norwegian 挪威/挪威的
+Denmark/Danish 丹麦/丹麦的
+Holland/Dutch 荷兰/荷兰的
+Russia/Russian 俄罗斯/俄罗斯的
+
+服装服饰类
+skirt 短裙
+shirt 衬衫
+blouse 女式衬衫
+suit 西装
+tie 领带
+trousers 裤子
+
+功能用语类
+pardon 请再说一遍
+whose 谁的
+perhaps 可能
+make 品牌
+nationality 国籍
+customs 海关
+
+颜色类
+gray/grey 灰色
+purple 紫色
+brown 棕色
+orange 橙色
