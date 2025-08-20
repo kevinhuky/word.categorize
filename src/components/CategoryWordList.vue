@@ -1,26 +1,26 @@
 <template>
   <div class="h-full flex flex-col overflow-hidden">
     <!-- Category Filter Section -->
-    <el-card class="mb-4 flex-shrink-0">
+    <el-card class="mb-4 flex-shrink-0 shadow-lg border-0 rounded-2xl">
       <div class="space-y-4">
         <!-- Header -->
         <div class="flex items-center justify-between">
-          <div class="flex items-center space-x-2">
-            <el-icon size="20" color="#18a058">
-              <Collection />
-            </el-icon>
-            <span class="text-base font-semibold">分类筛选</span>
-            <!-- 调试信息 -->
-            <el-tag size="small" type="info">
-              数据版本: {{ dataVersion }}
-            </el-tag>
-            <el-tag size="small" type="warning">
-              原始数据: {{ words.length }}
-            </el-tag>
+          <div class="flex items-center space-x-3">
+            <div class="flex items-center justify-center w-8 h-8 bg-gradient-to-br from-green-500 to-emerald-600 rounded-lg">
+              <el-icon size="18" color="white">
+                <Collection />
+              </el-icon>
+            </div>
+            <span class="text-lg font-semibold text-gray-800">分类筛选</span>
           </div>
-          <span class="text-sm text-gray-500">
-            共 {{ totalWordCount }} 个单词
-          </span>
+          <div class="flex items-center space-x-2">
+            <el-icon size="16" class="text-gray-400">
+              <Document />
+            </el-icon>
+            <span class="text-sm text-gray-500 font-medium">
+              共 {{ totalWordCount }} 个单词
+            </span>
+          </div>
         </div>
         
         <!-- Category Buttons -->
@@ -28,15 +28,16 @@
           <!-- All Categories Button -->
           <el-button
             :type="selectedCategory === null ? 'primary' : 'default'"
-            size="small"
+            size="default"
             round
             @click="selectCategory(null)"
+            class="h-9"
           >
-            全部
+            <span class="font-medium">全部</span>
             <el-tag
               size="small"
               :type="selectedCategory === null ? 'primary' : 'info'"
-              class="ml-1"
+              class="ml-2"
             >
               {{ totalWordCount }}
             </el-tag>
@@ -46,19 +47,20 @@
           <div
             v-for="category in categories"
             :key="category"
-            class="flex items-center"
+            class="flex items-center gap-1"
           >
             <el-button
               :type="selectedCategory === category ? 'primary' : 'default'"
-              size="small"
+              size="default"
               round
               @click="selectCategory(category)"
+              class="h-9"
             >
-              {{ category }}
+              <span class="font-medium">{{ category }}</span>
               <el-tag
                 size="small"
                 :type="selectedCategory === category ? 'primary' : 'info'"
-                class="ml-1"
+                class="ml-2"
               >
                 {{ getCategoryWordCount(category) }}
               </el-tag>
@@ -67,8 +69,8 @@
               text
               size="small"
               type="info"
-              class="ml-1"
               @click="startEditCategory(category)"
+              class="w-6 h-6 p-0 min-w-0"
             >
               <el-icon size="12">
                 <Edit />
@@ -80,29 +82,37 @@
     </el-card>
 
     <!-- Words Display Section -->
-    <el-card class="flex-1 overflow-hidden" body-style="padding: 0; height: 100%; display: flex; flex-direction: column;">
+    <el-card class="flex-1 overflow-hidden shadow-lg border-0 rounded-2xl" body-style="padding: 0; height: 100%; display: flex; flex-direction: column;">
       <!-- Header -->
-      <div class="p-4 border-b border-gray-200 flex-shrink-0">
+      <div class="px-5 py-4 border-b border-gray-100 flex-shrink-0 bg-gradient-to-r from-gray-50 to-blue-50">
         <div class="flex items-center justify-between">
-          <div>
-            <h3 class="text-lg font-semibold mb-1">
-              {{ selectedCategory ? `${selectedCategory}` : '全部单词' }}
-            </h3>
-            <p class="text-sm text-gray-500">
-              {{ displayWords.length }} 个单词
-            </p>
+          <div class="flex items-center space-x-3">
+            <div class="flex items-center justify-center w-8 h-8 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg">
+              <el-icon size="16" color="white">
+                <Document />
+              </el-icon>
+            </div>
+            <div>
+              <h3 class="text-lg font-semibold text-gray-800">
+                {{ selectedCategory ? `${selectedCategory}` : '全部单词' }}
+              </h3>
+              <p class="text-xs text-gray-500 mt-0.5">
+                {{ displayWords.length }} 个单词
+              </p>
+            </div>
           </div>
           
           <!-- Search Bar -->
-          <div style="width: 200px;">
+          <div style="width: 220px;">
             <el-input
               v-model="searchQuery"
               placeholder="搜索单词..."
               clearable
-              size="small"
+              size="default"
+              class="search-input"
             >
               <template #prefix>
-                <el-icon>
+                <el-icon size="16" class="text-gray-400">
                   <Search />
                 </el-icon>
               </template>
@@ -147,12 +157,12 @@
           <el-table-column
             prop="word"
             label="英文单词"
-            width="200"
+            width="220"
             fixed="left"
           >
             <template #default="scope">
-              <div class="flex flex-col">
-                <span class="font-mono text-xl font-bold text-blue-600">{{ scope.row.word }}</span>
+              <div class="flex flex-col py-1">
+                <span class="font-mono text-lg font-bold text-blue-600 leading-tight">{{ scope.row.word }}</span>
                 <span class="text-xs text-gray-400 mt-1">{{ formatDate(scope.row.createdAt) }}</span>
               </div>
             </template>
@@ -173,7 +183,7 @@
           <el-table-column
             prop="category"
             label="分类"
-            width="160"
+            width="180"
             align="center"
           >
             <template #default="scope">
@@ -181,7 +191,8 @@
                 <el-tag 
                   :type="getCategoryTagType(scope.row.category)" 
                   size="default"
-                  class="px-3 py-1"
+                  class="px-3 py-1 font-medium"
+                  round
                 >
                   {{ scope.row.category }}
                 </el-tag>
@@ -190,9 +201,9 @@
                   size="small"
                   type="info"
                   @click="startEditCategory(scope.row.category)"
-                  class="opacity-60 hover:opacity-100"
+                  class="opacity-60 hover:opacity-100 w-6 h-6 p-0 min-w-0"
                 >
-                  <el-icon size="14">
+                  <el-icon size="12">
                     <Edit />
                   </el-icon>
                 </el-button>
@@ -202,7 +213,7 @@
           
           <el-table-column
             label="操作"
-            width="100"
+            width="80"
             fixed="right"
             align="center"
           >
@@ -216,11 +227,11 @@
               >
                 <template #reference>
                   <el-button
-                    size="default"
+                    size="small"
                     type="danger"
                     :icon="Delete"
                     circle
-                    class="hover:scale-110 transition-transform"
+                    class="hover:scale-105 transition-transform w-7 h-7"
                   />
                 </template>
               </el-popconfirm>
@@ -527,3 +538,19 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.search-input :deep(.el-input__wrapper) {
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  transition: all 0.2s ease;
+}
+
+.search-input :deep(.el-input__wrapper:hover) {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.search-input :deep(.el-input__wrapper.is-focus) {
+  box-shadow: 0 4px 12px rgba(64, 158, 255, 0.2);
+}
+</style>

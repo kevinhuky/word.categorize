@@ -1,43 +1,49 @@
 <template>
   <div class="h-full flex flex-col">
     <!-- Header -->
-    <div class="p-6 border-b border-gray-100">
+    <div class="px-6 py-5 border-b border-gray-100 bg-gradient-to-r from-blue-50 to-purple-50">
       <div class="text-center">
-        <div class="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl shadow-lg mb-4">
-          <el-icon size="32" color="white">
+        <div class="inline-flex items-center justify-center w-14 h-14 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl shadow-lg mb-3">
+          <el-icon size="28" color="white">
             <Upload />
           </el-icon>
         </div>
-        <h2 class="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">
+        <h2 class="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-1">
           批量导入
         </h2>
-        <p class="text-gray-500">
+        <p class="text-sm text-gray-500">
           上传JSON文件快速导入词汇数据
         </p>
       </div>
     </div>
 
     <!-- Content -->
-    <div class="flex-1 p-6 overflow-hidden">
-      <div class="h-full flex flex-col space-y-6">
+    <div class="flex-1 p-5 overflow-hidden">
+      <div class="h-full flex flex-col space-y-5">
         <!-- Upload Area -->
         <el-upload
           drag
           :show-file-list="false"
           accept=".json"
-          :before-upload="handleFileUpload"
+          :on-change="handleFileChange"
           :auto-upload="false"
-          class="upload-area"
+          :limit="1"
+          class="upload-area rounded-xl border-2 border-dashed border-gray-300 hover:border-blue-400 transition-colors"
         >
-          <div class="py-8">
-            <el-icon size="60" class="text-gray-400 mb-4">
-              <Document />
-            </el-icon>
-            <div class="text-lg font-medium text-gray-700 mb-2">
-              点击或拖拽文件到此处
-            </div>
-            <div class="text-sm text-gray-500">
-              仅支持 JSON 格式，最大 10MB
+          <div class="py-6 px-4">
+            <div class="flex flex-col items-center">
+              <el-icon size="48" class="text-blue-400 mb-3">
+                <Document />
+              </el-icon>
+              <div class="text-base font-bold text-gray-800 mb-1 text-center">
+                📁 点击或拖拽JSON文件到此处
+              </div>
+              <div class="text-xs text-gray-500 text-center mb-2">
+                仅支持 JSON 格式，最大 10MB
+              </div>
+              <div class="text-xs text-blue-600 text-center">
+                💡 或者点击下方"一键导入示例数据"快速体验
+              </div>
             </div>
           </div>
         </el-upload>
@@ -47,17 +53,18 @@
           v-if="importPreview.length > 0"
           class="flex-1 flex flex-col overflow-hidden"
         >
-          <div class="flex justify-between items-center mb-4">
-            <h3 class="text-lg font-semibold text-gray-800">
+          <div class="flex justify-between items-center mb-3 px-1">
+            <h3 class="text-base font-semibold text-gray-800">
               预览数据 ({{ importPreview.length }} 个单词)
             </h3>
             <div class="flex space-x-2">
               <el-button
                 size="small"
                 @click="clearPreview"
+                class="px-3"
               >
                 <template #icon>
-                  <el-icon><Close /></el-icon>
+                  <el-icon size="14"><Close /></el-icon>
                 </template>
                 清除
               </el-button>
@@ -66,33 +73,34 @@
                 size="small"
                 :loading="isImporting"
                 @click="confirmImport"
+                class="px-3"
               >
                 <template #icon>
-                  <el-icon><Check /></el-icon>
+                  <el-icon size="14"><Check /></el-icon>
                 </template>
                 {{ isImporting ? '导入中...' : '确认导入' }}
               </el-button>
             </div>
           </div>
           
-          <el-card class="flex-1 overflow-hidden" body-style="padding: 0; height: 100%;">
+          <el-card class="flex-1 overflow-hidden rounded-xl border-0 shadow-sm" body-style="padding: 0; height: 100%;">
             <el-scrollbar class="h-full">
-              <div class="p-4">
-                <div class="space-y-3">
+              <div class="p-3">
+                <div class="space-y-2">
                   <div 
                     v-for="(word, index) in importPreview.slice(0, 50)" 
                     :key="index"
-                    class="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
+                    class="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-blue-50 hover:border-blue-200 border border-transparent transition-all duration-200"
                   >
-                    <div class="flex-1 min-w-0">
-                      <div class="font-mono text-lg font-bold text-gray-900 truncate">
+                    <div class="flex-1 min-w-0 mr-3">
+                      <div class="font-mono text-base font-bold text-blue-700 truncate">
                         {{ word.word }}
                       </div>
-                      <div class="text-gray-600 text-sm truncate mt-1">
+                      <div class="text-gray-600 text-sm truncate mt-0.5">
                         {{ word.meaning }}
                       </div>
                     </div>
-                    <el-tag type="info" size="small" class="ml-3 flex-shrink-0">
+                    <el-tag type="primary" size="small" class="flex-shrink-0">
                       {{ word.category }}
                     </el-tag>
                   </div>
@@ -137,32 +145,32 @@
         </el-alert>
 
         <!-- Format Help -->
-        <div class="flex-shrink-0 space-y-2">
+        <div class="flex-shrink-0 space-y-2 mt-auto pt-2">
           <el-button
             type="info"
             plain
-            size="default"
+            size="small"
             @click="showFormatHelp = true"
-            class="w-full"
+            class="w-full h-10"
           >
             <template #icon>
-              <el-icon><QuestionFilled /></el-icon>
+              <el-icon size="16"><QuestionFilled /></el-icon>
             </template>
-            查看JSON格式说明
+            <span class="text-sm">查看JSON格式说明</span>
           </el-button>
           
           <!-- Test Import Button -->
           <el-button
             type="success"
             plain
-            size="default"
+            size="small"
             @click="testImportWordsJson"
-            class="w-full"
+            class="w-full h-10"
           >
             <template #icon>
-              <el-icon><Upload /></el-icon>
+              <el-icon size="16"><Upload /></el-icon>
             </template>
-            测试导入 words-import.json
+            <span class="text-sm">🚀 一键导入示例数据</span>
           </el-button>
         </div>
       </div>
@@ -282,7 +290,31 @@ export default {
   }
 ]`
 
-    const handleFileUpload = (file) => {
+    const handleFileChange = (file, fileList) => {
+      console.log('=== handleFileChange called ===')
+      console.log('File object:', file)
+      console.log('File raw:', file.raw)
+      console.log('File status:', file.status)
+      
+      // 清空文件列表以避免累积
+      fileList.splice(0, fileList.length)
+      
+      if (file.raw) {
+        processFile(file.raw)
+      } else if (file) {
+        // 如果没有raw属性，直接使用file
+        processFile(file)
+      }
+    }
+
+    const processFile = (file) => {
+      console.log('=== processFile called ===')
+      console.log('File name:', file.name)
+      console.log('File size:', file.size)
+      console.log('File type:', file.type)
+      
+      ElMessage.info(`📁 正在处理文件: ${file.name}`)
+      
       if (!file.name.endsWith('.json')) {
         importErrors.value = ['请选择JSON格式文件']
         ElMessage.error('请选择JSON格式文件')
@@ -296,22 +328,43 @@ export default {
         return false
       }
 
+      ElMessage.info('📖 正在读取文件内容...')
+      
       const reader = new FileReader()
       reader.onload = (e) => {
         try {
+          console.log('File content length:', e.target.result.length)
+          console.log('File content preview:', e.target.result.substring(0, 200) + '...')
+          
           const jsonData = JSON.parse(e.target.result)
+          console.log('JSON parsed successfully, array length:', jsonData.length)
+          
+          ElMessage.success(`✅ 文件读取成功！开始验证 ${jsonData.length} 个条目`)
           validateAndPreviewWords(jsonData)
         } catch (error) {
+          console.error('JSON parse error:', error)
           const errorMsg = 'JSON文件格式错误: ' + error.message
           importErrors.value = [errorMsg]
           ElMessage.error(errorMsg)
         }
       }
+      
+      reader.onerror = (error) => {
+        console.error('FileReader error:', error)
+        ElMessage.error('文件读取失败')
+      }
+      
       reader.readAsText(file)
       return false // 阻止自动上传
     }
 
     const validateAndPreviewWords = (data) => {
+      console.log('=== validateAndPreviewWords called ===')
+      console.log('Data type:', typeof data)
+      console.log('Is array:', Array.isArray(data))
+      console.log('Data length:', data?.length)
+      console.log('Data sample:', data?.slice(0, 2))
+      
       importErrors.value = []
       importPreview.value = []
 
@@ -364,11 +417,18 @@ export default {
         importErrors.value = errors
       }
 
+      console.log('Validation completed:')
+      console.log('- Valid words count:', validWords.length)
+      console.log('- Errors count:', errors.length)
+      console.log('- Valid words sample:', validWords.slice(0, 3))
+      console.log('- Errors sample:', errors.slice(0, 3))
+
       if (validWords.length > 0) {
         importPreview.value = validWords
-        ElMessage.success(`已解析 ${validWords.length} 个有效单词`)
+        console.log('importPreview.value set to:', importPreview.value.length, 'words')
+        ElMessage.success(`✅ 已解析 ${validWords.length} 个有效单词，准备预览`)
       } else {
-        ElMessage.error('没有找到有效的单词数据')
+        ElMessage.error('❌ 没有找到有效的单词数据')
       }
     }
 
@@ -406,12 +466,26 @@ export default {
         }
 
         if (successCount > 0) {
-          const successMsg = `✅ 成功导入 ${successCount} 个单词` + (failCount > 0 ? `，${failCount} 个失败` : '')
-          ElMessage.success(successMsg)
+          const successMsg = `🎉 成功导入 ${successCount} 个单词！` + (failCount > 0 ? ` (${failCount} 个失败)` : '')
+          ElMessage({
+            message: successMsg,
+            type: 'success',
+            duration: 3000,
+            showClose: true
+          })
           emit('words-imported')
           clearPreview()
+          
+          // 额外提示用户查看右侧列表
+          setTimeout(() => {
+            ElMessage({
+              message: '👉 请查看右侧单词列表，新导入的词汇已添加！',
+              type: 'info',
+              duration: 4000
+            })
+          }, 1000)
         } else {
-          ElMessage.error('导入失败，没有成功导入任何单词')
+          ElMessage.error('❌ 导入失败，没有成功导入任何单词')
         }
 
         if (errors.length > 0) {
@@ -435,17 +509,24 @@ export default {
 
     const testImportWordsJson = async () => {
       try {
-        ElMessage.info('正在加载 words-import.json...')
+        ElMessage.info('🔄 正在加载示例数据...')
         const response = await fetch('/words-import.json')
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`)
         }
         const jsonData = await response.json()
-        ElMessage.success('文件加载成功，开始验证数据...')
+        ElMessage.success(`✅ 示例文件加载成功！包含 ${jsonData.length} 个单词`)
         validateAndPreviewWords(jsonData)
       } catch (error) {
-        ElMessage.error('加载文件失败: ' + error.message)
+        ElMessage.error('❌ 加载示例文件失败: ' + error.message)
         console.error('Test import error:', error)
+        
+        // 提供备选方案
+        ElMessage({
+          message: '💡 提示：您也可以创建自己的JSON文件进行导入',
+          type: 'info',
+          duration: 4000
+        })
       }
     }
 
@@ -455,7 +536,8 @@ export default {
       isImporting,
       showFormatHelp,
       formatExample,
-      handleFileUpload,
+      processFile,
+      handleFileChange,
       confirmImport,
       clearPreview,
       testImportWordsJson
@@ -463,3 +545,20 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.upload-area :deep(.el-upload-dragger) {
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+.upload-area :deep(.el-upload-dragger:hover) {
+  border-color: #409eff;
+  background-color: #f0f9ff;
+}
+
+.upload-area :deep(.el-upload-dragger.is-dragover) {
+  border-color: #409eff;
+  background-color: #ecf5ff;
+}
+</style>

@@ -1,0 +1,27 @@
+[
+  {
+    "word": "hello",
+    "meaning": "你好，问候语",
+    "category": "日常用语"
+  },
+  {
+    "word": "world",
+    "meaning": "世界",
+    "category": "日常用语"
+  },
+  {
+    "word": "computer",
+    "meaning": "计算机，电脑",
+    "category": "科技术语"
+  },
+  {
+    "word": "love",
+    "meaning": "爱，喜欢",
+    "category": "情感表达"
+  },
+  {
+    "word": "beautiful",
+    "meaning": "美丽的，漂亮的",
+    "category": "情感表达"
+  }
+]

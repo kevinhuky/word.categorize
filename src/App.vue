@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="min-h-screen bg-gray-50">
+  <div id="app" class="min-h-screen bg-gray-50 flex flex-col">
     <!-- 顶部导航 -->
     <nav class="bg-white shadow-sm border-b sticky top-0 z-40">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -43,19 +43,19 @@
     </nav>
 
     <!-- 主要内容区域 -->
-    <main class="py-6">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <el-row :gutter="24">
+    <main class="flex-1 py-6 overflow-hidden">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full">
+        <el-row :gutter="24" class="h-full">
           <!-- 左侧：批量导入 -->
-          <el-col :lg="8">
-            <el-card class="h-[calc(100vh-8rem)]" body-style="padding: 0; height: 100%; display: flex; flex-direction: column;">
+          <el-col :lg="8" class="h-full">
+            <el-card class="h-full shadow-lg border-0 rounded-2xl" body-style="padding: 0; height: 100%; display: flex; flex-direction: column;">
               <BatchImport @words-imported="handleWordsImported" />
             </el-card>
           </el-col>
 
           <!-- 右侧：单词列表 -->
-          <el-col :lg="16">
-            <div style="height: calc(100vh - 8rem);">
+          <el-col :lg="16" class="h-full">
+            <div class="h-full">
               <CategoryWordList 
                 :key="wordListKey"
                 ref="wordListRef"
