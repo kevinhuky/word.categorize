@@ -1,27 +1,19 @@
 <template>
-  <div class="h-full flex flex-col">
-    <!-- Header -->
-    <div class="px-6 py-5 border-b border-gray-100 bg-gradient-to-r from-blue-50 to-purple-50">
-      <div class="text-center">
-        <div class="inline-flex items-center justify-center w-14 h-14 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl shadow-lg mb-3">
-          <el-icon size="28" color="white">
-            <Upload />
-          </el-icon>
-        </div>
-        <h2 class="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-1">
-          批量导入
-        </h2>
-        <p class="text-sm text-gray-500">
-          上传JSON文件快速导入词汇数据
-        </p>
+  <div class="h-full flex flex-col p-5">
+    <div class="flex items-center space-x-3 mb-4 flex-shrink-0">
+      <div class="flex items-center justify-center w-8 h-8 bg-gradient-to-br from-purple-500 to-violet-600 rounded-lg">
+        <el-icon size="18" color="white">
+          <Upload />
+        </el-icon>
+      </div>
+      <div>
+        <h2 class="text-lg font-semibold text-gray-800">批量导入</h2>
+        <p class="text-xs text-gray-500">支持JSON文件导入</p>
       </div>
     </div>
-
-    <!-- Content -->
-    <div class="flex-1 p-5 overflow-hidden">
-      <div class="h-full flex flex-col space-y-5">
-        <!-- Upload Area -->
-        <el-upload
+    
+    <div class="flex-1 flex flex-col overflow-hidden space-y-3">
+      <el-upload
           drag
           :show-file-list="false"
           accept=".json"
@@ -36,13 +28,13 @@
                 <Document />
               </el-icon>
               <div class="text-base font-bold text-gray-800 mb-1 text-center">
-                📁 点击或拖拽JSON文件到此处
+                📁 点击或拖拽JSON文件到此区域
               </div>
               <div class="text-xs text-gray-500 text-center mb-2">
-                仅支持 JSON 格式，最大 10MB
+                仅支持JSON 格式，最大10MB
               </div>
               <div class="text-xs text-blue-600 text-center">
-                💡 或者点击下方"一键导入示例数据"快速体验
+                💡 或者点击下方一键导入示例数据快速体验
               </div>
             </div>
           </div>
@@ -66,7 +58,7 @@
                 <template #icon>
                   <el-icon size="14"><Close /></el-icon>
                 </template>
-                清除
+                ??
               </el-button>
               <el-button 
                 type="primary" 
@@ -174,7 +166,6 @@
           </el-button>
         </div>
       </div>
-    </div>
 
     <!-- JSON格式说明弹窗 -->
     <el-dialog
@@ -193,7 +184,7 @@
       </template>
 
       <div class="grid grid-cols-2 gap-6">
-        <!-- 左侧：必填字段和示例格式 -->
+        <!-- ???????????? -->
         <div class="space-y-4">
           <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
             <h4 class="text-sm font-semibold text-blue-800 mb-2">📋 必填字段</h4>
@@ -221,7 +212,7 @@
           </div>
         </div>
 
-        <!-- 右侧：注意事项和支持功能 -->
+        <!-- ???????????? -->
         <div class="space-y-4">
           <div class="bg-amber-50 border border-amber-200 rounded-lg p-4">
             <h4 class="text-sm font-semibold text-amber-800 mb-2">⚠️ 注意事项</h4>
@@ -229,13 +220,13 @@
               <li>• 文件必须是有效的JSON格式</li>
               <li>• 最外层必须是数组 [ ]</li>
               <li>• 每个对象必须包含word、meaning、category三个字段</li>
-              <li>• 文件大小限制：10MB</li>
+              <li>• 文件大小限制为10MB</li>
               <li>• 重复单词会自动跳过</li>
             </ul>
           </div>
 
           <div class="bg-green-50 border border-green-200 rounded-lg p-4">
-            <h4 class="text-sm font-semibold text-green-800 mb-2">✅ 支持功能</h4>
+            <h4 class="text-sm font-semibold text-green-800 mb-2">✨ 支持功能</h4>
             <ul class="text-sm text-green-700 space-y-1">
               <li>• 中英文混合内容</li>
               <li>• 自动去除前后空格</li>
@@ -275,7 +266,7 @@ export default {
     const formatExample = `[
   {
     "word": "example",
-    "meaning": "例子，实例", 
+    "meaning": "例子，实例",
     "category": "日常用语"
   },
   {
@@ -387,22 +378,22 @@ export default {
 
       data.forEach((item, index) => {
         if (!item || typeof item !== 'object') {
-          errors.push(`第${index + 1}项: 必须是对象`)
+          errors.push(`第 ${index + 1} 项必须是对象`)
           return
         }
 
         if (!item.word || typeof item.word !== 'string' || !item.word.trim()) {
-          errors.push(`第${index + 1}项: 缺少有效的word字段`)
+          errors.push(`第 ${index + 1} 项缺少有效的word字段`)
           return
         }
 
         if (!item.meaning || typeof item.meaning !== 'string' || !item.meaning.trim()) {
-          errors.push(`第${index + 1}项: 缺少有效的meaning字段`)
+          errors.push(`第 ${index + 1} 项缺少有效的meaning字段`)
           return
         }
 
         if (!item.category || typeof item.category !== 'string' || !item.category.trim()) {
-          errors.push(`第${index + 1}项: 缺少有效的category字段`)
+          errors.push(`第 ${index + 1} 项缺少有效的category字段`)
           return
         }
 

@@ -1,48 +1,5 @@
 <template>
-  <div id="app" class="min-h-screen bg-gray-50 flex flex-col">
-    <!-- 顶部导航 -->
-    <nav class="bg-white shadow-sm border-b sticky top-0 z-40">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between items-center h-16">
-          <!-- Logo Section -->
-          <div class="flex items-center gap-3">
-            <div class="flex items-center justify-center w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl shadow-lg">
-              <el-icon class="text-white" size="24">
-                <Collection />
-              </el-icon>
-            </div>
-            <div>
-              <h1 class="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                LexiSort
-              </h1>
-              <p class="text-xs text-gray-500">
-                智能词汇分类系统
-              </p>
-            </div>
-          </div>
-
-          <!-- Quick Stats -->
-          <div class="flex items-center gap-6 text-sm">
-            <div class="flex items-center gap-2 text-gray-600 bg-blue-50 px-3 py-1.5 rounded-lg">
-              <el-icon class="text-blue-600" size="16">
-                <CircleCheck />
-              </el-icon>
-              <span class="font-medium text-blue-700">{{ totalWords }}</span>
-              <span class="text-blue-600">个词汇</span>
-            </div>
-            <div class="flex items-center gap-2 text-gray-600 bg-purple-50 px-3 py-1.5 rounded-lg">
-              <el-icon class="text-purple-600" size="16">
-                <Collection />
-              </el-icon>
-              <span class="font-medium text-purple-700">{{ totalCategories }}</span>
-              <span class="text-purple-600">个分类</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </nav>
-
-    <!-- 主要内容区域 -->
+  <div class="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">
     <main class="flex-1 py-6 overflow-hidden">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full">
         <el-row :gutter="24" class="h-full">
